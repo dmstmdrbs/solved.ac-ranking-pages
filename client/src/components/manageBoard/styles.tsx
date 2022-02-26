@@ -18,8 +18,10 @@ const Container = styled.div`
 `;
 
 const Modal = styled.div`
-  width: 10vw;
-  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  min-width: 10vw;
+  min-height: 30vh;
   border: 1px solid;
   border-radius: 20px;
 `;
