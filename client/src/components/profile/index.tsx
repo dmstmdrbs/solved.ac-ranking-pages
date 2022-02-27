@@ -1,5 +1,5 @@
 import { IUser } from "@/src/constants";
-import { Container, ProfileImage } from "./styles";
+import { Container, ProfileImage, Username } from "./styles";
 
 interface Props {
 	handle: string;
@@ -12,7 +12,9 @@ const Profile = ({ handle, rank, profileImageUrl, maxStreak }: Props) => {
 	return (
 		<Container>
 			<ProfileImage src={profileImageUrl} />
-			<p>{handle}</p>
+			<Username href={`https://solved.ac/profile/${handle}`} target="_blank">
+				{handle}
+			</Username>
 			<p>{rank}</p>
 			<p>{maxStreak}</p>
 		</Container>
