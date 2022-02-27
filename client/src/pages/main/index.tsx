@@ -11,6 +11,7 @@ const Main = () => {
 		"maxcha98",
 		"dre12am14",
 		"tjdqls1668",
+		"dmstmdrbs",
 		"tph00300",
 	]);
 	const userQueries = useQueries(
@@ -32,7 +33,7 @@ const Main = () => {
 				<Columns>
 					<ColumnText>프로필</ColumnText>
 					<ColumnText>닉네임</ColumnText>
-					<ColumnText>점수</ColumnText>
+					<ColumnText>랭킹</ColumnText>
 					<ColumnText>스트릭</ColumnText>
 				</Columns>
 				{userQueries.map(({ isLoading, data }, idx) =>
