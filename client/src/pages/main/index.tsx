@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 const Main = () => {
 	const [memberList, setMemberList] = useState([
 		"maxcha98",
-
 		"dre12am14",
 		"tjdqls1668",
 		"tph00300",
@@ -36,18 +35,17 @@ const Main = () => {
 					<ColumnText>점수</ColumnText>
 					<ColumnText>스트릭</ColumnText>
 				</Columns>
-				{userQueries.map(({ isLoading, data }) => {
-					if (isLoading)
-						return (
-							<div key={data}>
-								<h1>Loading...</h1>
-							</div>
-						);
-					else
-						return (
-							data !== undefined && <Profile key={data?.handle} {...data} />
-						);
-				})}
+				{userQueries.map(({ isLoading, data }, idx) =>
+					isLoading ? (
+						<div key={idx}>
+							<h1>Loading...</h1>
+						</div>
+					) : (
+						<div key={data?.handle}>
+							{data !== undefined && <Profile {...data} />}
+						</div>
+					)
+				)}
 			</Wrapper>
 			<ManageBoard memberList={memberList} handleAddMember={handleAddMember} />
 		</Container>
