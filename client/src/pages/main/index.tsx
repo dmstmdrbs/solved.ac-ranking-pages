@@ -3,7 +3,7 @@ import ManageBoard from "@components/manageBoard";
 import { useQuery } from "react-query";
 import { IUser } from "@constants/index";
 import { fetchUserProfile } from "../../utils/api";
-import { Container, Wrapper, Logo } from "./styles";
+import { Container, Columns, ColumnText, Wrapper, Logo } from "./styles";
 import { useEffect, useState } from "react";
 
 const Main = () => {
@@ -20,7 +20,14 @@ const Main = () => {
 	return (
 		<Container>
 			<Logo>AJOU</Logo>
+
 			<Wrapper>
+				<Columns>
+					<ColumnText>프로필</ColumnText>
+					<ColumnText>닉네임</ColumnText>
+					<ColumnText>점수</ColumnText>
+					<ColumnText>스트릭</ColumnText>
+				</Columns>
 				{memberList.map((element) => {
 					const { isLoading: userDataLoading, data: userData } =
 						useQuery<IUser>(["user-data", element], () =>
