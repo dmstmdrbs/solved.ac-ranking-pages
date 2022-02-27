@@ -1,6 +1,6 @@
 import Profile from "@components/profile";
 import ManageBoard from "@components/manageBoard";
-import { useQuery } from "react-query";
+import { useQuery, useQueries } from "react-query";
 import { IUser } from "@constants/index";
 import { fetchUserProfile } from "../../utils/api";
 import { Container, Columns, ColumnText, Wrapper, Logo } from "./styles";
@@ -9,11 +9,19 @@ import { useEffect, useState } from "react";
 const Main = () => {
 	const [memberList, setMemberList] = useState([
 		"maxcha98",
-		"dmstmdrbs",
+
 		"dre12am14",
 		"tjdqls1668",
 		"tph00300",
 	]);
+	const userQueries = useQueries(
+		memberList.map((handle) => {
+			return {
+				queryKey: ["user", handle],
+				queryFn: () => fetchUserProfile(handle),
+			};
+		})
+	);
 	const handleAddMember = (member: string) =>
 		setMemberList([...memberList, member]);
 
@@ -28,20 +36,16 @@ const Main = () => {
 					<ColumnText>점수</ColumnText>
 					<ColumnText>스트릭</ColumnText>
 				</Columns>
-				{memberList.map((element) => {
-					const { isLoading: userDataLoading, data: userData } =
-						useQuery<IUser>(["user-data", element], () =>
-							fetchUserProfile(element)
-						);
-					if (userDataLoading)
+				{userQueries.map(({ isLoading, data }) => {
+					if (isLoading)
 						return (
-							<div key={element}>
+							<div key={data}>
 								<h1>Loading...</h1>
 							</div>
 						);
 					else
 						return (
-							userData !== undefined && <Profile key={element} {...userData} />
+							data !== undefined && <Profile key={data?.handle} {...data} />
 						);
 				})}
 			</Wrapper>
